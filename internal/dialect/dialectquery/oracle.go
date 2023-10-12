@@ -1,6 +1,9 @@
 package dialectquery
 
-import "fmt"
+import (
+	"fmt"
+	"log"
+)
 
 type Oracle struct{}
 
@@ -14,11 +17,14 @@ func (m *Oracle) CreateTable(tableName string) string {
 		tstamp DATE default sysdate,
 		PRIMARY KEY(id)
 	)`
+	//		CREATE SEQUENCE migrate_seq START WITH 1000 INCREMENT BY   1 NOCACHE NOCYCLE;
+
 	return fmt.Sprintf(q, tableName)
 }
 
 func (m *Oracle) InsertVersion(tableName string) string {
-	q := `INSERT INTO %s (version_id, is_applied) VALUES (?, ?)`
+	log.Println("insert")
+	q := `INSERT INTO %s (id,version_id, is_applied) VALUES (migrate_seq.nextval,?, ?)`
 	return fmt.Sprintf(q, tableName)
 }
 

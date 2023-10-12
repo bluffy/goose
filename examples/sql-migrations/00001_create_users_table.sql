@@ -1,9 +1,9 @@
 -- +goose Up
 CREATE TABLE users (
-    id int NOT NULL PRIMARY KEY,
-    username text,
-    name text,
-    surname text
+    id number NOT NULL PRIMARY KEY,
+    username varchar2(100),
+    name varchar2(100),
+    surname varchar2(100)
 );
 
 INSERT INTO users VALUES

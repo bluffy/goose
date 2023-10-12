@@ -12,7 +12,7 @@ func (t *Tidb) CreateTable(tableName string) string {
 		version_id bigint NOT NULL,
 		is_applied boolean NOT NULL,
 		tstamp timestamp NULL default now(),
-		PRIMARY KEY(id)
+		PRIMARY KEY(id);
 	)`
 	return fmt.Sprintf(q, tableName)
 }
