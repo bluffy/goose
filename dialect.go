@@ -46,6 +46,8 @@ func SetDialect(s string) error {
 		d = dialect.Clickhouse
 	case "vertica":
 		d = dialect.Vertica
+	case "oracle":
+		d = dialect.Oracle
 	default:
 		return fmt.Errorf("%q: unknown dialect", s)
 	}

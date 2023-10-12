@@ -8,7 +8,6 @@ import (
 	"os"
 
 	"github.com/pressly/goose/v3"
-	_ "modernc.org/sqlite"
 )
 
 var (

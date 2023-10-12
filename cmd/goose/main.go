@@ -129,6 +129,7 @@ func main() {
 	if err != nil {
 		log.Fatalf("-dbstring=%q: %v\n", dbstring, err)
 	}
+	log.Println("TEST", db.Ping())
 	defer func() {
 		if err := db.Close(); err != nil {
 			log.Fatalf("goose: failed to close DB: %v\n", err)

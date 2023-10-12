@@ -325,6 +325,7 @@ func EnsureDBVersion(db *sql.DB) (int64, error) {
 func EnsureDBVersionContext(ctx context.Context, db *sql.DB) (int64, error) {
 	dbMigrations, err := store.ListMigrations(ctx, db, TableName())
 	if err != nil {
+
 		return 0, createVersionTable(ctx, db)
 	}
 	// The most recent record for each migration specifies
@@ -359,14 +360,18 @@ func EnsureDBVersionContext(ctx context.Context, db *sql.DB) (int64, error) {
 // createVersionTable creates the db version table and inserts the
 // initial 0 value into it.
 func createVersionTable(ctx context.Context, db *sql.DB) error {
+
 	txn, err := db.BeginTx(ctx, nil)
+
 	if err != nil {
 		return err
 	}
+
 	if err := store.CreateVersionTable(ctx, txn, TableName()); err != nil {
 		_ = txn.Rollback()
 		return err
 	}
+
 	if err := store.InsertVersion(ctx, txn, TableName(), 0); err != nil {
 		_ = txn.Rollback()
 		return err

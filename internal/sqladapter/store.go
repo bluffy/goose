@@ -44,6 +44,8 @@ func NewStore(dialect string, table string) (Store, error) {
 		querier = &dialectquery.Tidb{}
 	case "vertica":
 		querier = &dialectquery.Vertica{}
+	case "oracle":
+		querier = &dialectquery.Oracle{}
 	default:
 		return nil, fmt.Errorf("unknown dialect: %q", dialect)
 	}

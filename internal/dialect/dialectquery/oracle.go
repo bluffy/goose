@@ -4,14 +4,14 @@ import "fmt"
 
 type Oracle struct{}
 
-var _ Querier = (*Mysql)(nil)
+var _ Querier = (*Oracle)(nil)
 
 func (m *Oracle) CreateTable(tableName string) string {
 	q := `CREATE TABLE %s (
-		id serial NOT NULL,
-		version_id bigint NOT NULL,
-		is_applied boolean NOT NULL,
-		tstamp timestamp NULL default now(),
+		id number NOT NULL,
+		version_id number NOT NULL,
+		is_applied number NOT NULL,
+		tstamp DATE default sysdate,
 		PRIMARY KEY(id)
 	)`
 	return fmt.Sprintf(q, tableName)
@@ -28,7 +28,8 @@ func (m *Oracle) DeleteVersion(tableName string) string {
 }
 
 func (m *Oracle) GetMigrationByVersion(tableName string) string {
-	q := `SELECT tstamp, is_applied FROM %s WHERE version_id=? ORDER BY tstamp DESC LIMIT 1`
+
+	q := `SELECT * FROM (SELECT tstamp, is_applied FROM %s WHERE version_id=? ORDER BY tstamp DESC) where rownum <= 1`
 	return fmt.Sprintf(q, tableName)
 }
 
