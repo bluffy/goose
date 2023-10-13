@@ -206,6 +206,7 @@ func runGoMigration(
 
 func insertOrDeleteVersion(ctx context.Context, tx *sql.Tx, version int64, direction bool) error {
 	if direction {
+
 		return store.InsertVersion(ctx, tx, TableName(), version)
 	}
 	return store.DeleteVersion(ctx, tx, TableName(), version)

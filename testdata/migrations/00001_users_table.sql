@@ -4,7 +4,7 @@ CREATE TABLE users (
     username TEXT NOT NULL,
     email TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
+)
 
 -- +goose Down
 DROP TABLE users;

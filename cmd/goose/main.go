@@ -81,14 +81,18 @@ func main() {
 		*dir = cfg.GOOSEMIGRATIONDIR
 	}
 
+	log.Printf("test11", args[0])
+
 	switch args[0] {
 	case "init":
 		if err := gooseInit(*dir); err != nil {
+
 			log.Fatalf("goose run: %v", err)
 		}
 		return
 	case "create":
 		if err := goose.Run("create", nil, *dir, args[1:]...); err != nil {
+
 			log.Fatalf("goose run: %v", err)
 		}
 		return
@@ -103,6 +107,7 @@ func main() {
 		}
 		return
 	case "validate":
+
 		if err := printValidate(*dir, *verbose); err != nil {
 			log.Fatalf("goose validate: %v", err)
 		}

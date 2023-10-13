@@ -98,6 +98,7 @@ func (s *store) CreateVersionTable(ctx context.Context, tx *sql.Tx, tableName st
 func (s *store) InsertVersion(ctx context.Context, tx *sql.Tx, tableName string, version int64) error {
 	q := s.querier.InsertVersion(tableName)
 	_, err := tx.ExecContext(ctx, q, version, true)
+
 	return err
 }
 

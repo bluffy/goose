@@ -13,3 +13,4 @@
 
 dist/
 release_notes.txt
+/migrations

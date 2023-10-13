@@ -2,7 +2,6 @@ package dialectquery
 
 import (
 	"fmt"
-	"log"
 )
 
 type Oracle struct{}
@@ -23,19 +22,19 @@ func (m *Oracle) CreateTable(tableName string) string {
 }
 
 func (m *Oracle) InsertVersion(tableName string) string {
-	log.Println("insert")
-	q := `INSERT INTO %s (id,version_id, is_applied) VALUES (migrate_seq.nextval,?, ?)`
-	return fmt.Sprintf(q, tableName)
+
+	q := `INSERT INTO %s (id,version_id, is_applied) VALUES (nvl((select max(id) from %s),0) + 1, :1, :2)`
+	return fmt.Sprintf(q, tableName, tableName)
 }
 
 func (m *Oracle) DeleteVersion(tableName string) string {
-	q := `DELETE FROM %s WHERE version_id=?`
+	q := `DELETE FROM %s WHERE version_id=:1`
 	return fmt.Sprintf(q, tableName)
 }
 
 func (m *Oracle) GetMigrationByVersion(tableName string) string {
 
-	q := `SELECT * FROM (SELECT tstamp, is_applied FROM %s WHERE version_id=? ORDER BY tstamp DESC) where rownum <= 1`
+	q := `SELECT * FROM (SELECT tstamp, is_applied FROM %s WHERE version_id=:1 ORDER BY tstamp DESC) where rownum <= 1`
 	return fmt.Sprintf(q, tableName)
 }
 
