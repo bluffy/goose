@@ -14,6 +14,8 @@ dist:
 	@rm -f ./bin/*
 	GOOS=darwin  GOARCH=amd64 go build -o ./bin/goose-darwin64       ./cmd/goose
 	GOOS=linux   GOARCH=amd64 go build -o ./bin/goose-linux64        ./cmd/goose
+	GOOS=linux   GOARCH=amd64 go build -tags="no_postgres no_mysql no_sqlite3 no_clickhouse no_mssql no_vertica" -o ./bin/goose-oracle ./cmd/goose
+	GOOS=linux   GOARCH=amd64 CGO_ENABLED=0 go build -a -installsuffix cgo  -tags="no_postgres no_mysql no_sqlite3 no_clickhouse no_mssql no_vertica" -o ./bin/goose-oracle-alpine ./cmd/goose
 	GOOS=linux   GOARCH=386   go build -o ./bin/goose-linux386       ./cmd/goose
 	GOOS=windows GOARCH=amd64 go build -o ./bin/goose-windows64.exe  ./cmd/goose
 	GOOS=windows GOARCH=386   go build -o ./bin/goose-windows386.exe ./cmd/goose

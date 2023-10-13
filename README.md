@@ -371,4 +371,6 @@ The gopher mascot was designed by [Renée French](https://reneefrench.blogspot.c
 Licensed under [MIT License](./LICENSE)
 
 
-# test
+# MyBuild oracle only Build
+
+ GOOS=linux   GOARCH=amd64 go build  -tags='no_postgres no_mysql no_sqlite3 no_clickhouse no_mssql no_vertica' -o ./bin/goose-oracle ./cmd/goose
